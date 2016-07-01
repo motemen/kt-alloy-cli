@@ -1,0 +1,43 @@
+buildscript {
+  ext.kotlin_version = '1.0.2-1'
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
+}
+
+plugins {
+  id "de.undercouch.download" version "3.0.0"
+}
+
+apply plugin: "kotlin"
+apply plugin: 'application'
+
+mainClassName = 'MainKt'
+
+repositories {
+  mavenCentral()
+}
+
+import de.undercouch.gradle.tasks.download.Download
+
+task downloadAlloyJar(type: Download) {
+    src  "http://alloy.mit.edu/alloy/downloads/alloy4.2.jar"
+    dest "lib/alloy4.2.jar"
+    outputs.file "lib/alloy4.2.jar"
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  compile files("lib/alloy4.2.jar")
+}
+
+compileKotlin.dependsOn(downloadAlloyJar)
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
