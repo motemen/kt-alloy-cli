@@ -37,6 +37,7 @@ fun main(args: Array<String>) {
     } else {
         val world = CompUtil.parseEverything_fromFile(reporter, null, file)
         val commands = world.allCommands
+        var failed = false
         println("1..${commands.indices.last + 1}")
         for (i in commands.indices) {
             val command = commands[i]
@@ -51,7 +52,12 @@ fun main(args: Array<String>) {
                     solution.writeXML(outputXML.path)
                     VizGUI(false, outputXML.path, null)
                 }
+
+                failed = true
             }
+        }
+        if (failed) {
+            kotlin.system.exitProcess(2)
         }
     }
 }
