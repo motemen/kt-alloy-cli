@@ -56,7 +56,7 @@ fun main(args: Array<String>) {
                 failed = true
             }
         }
-        if (failed) {
+        if (failed && !modeVisualize) {
             kotlin.system.exitProcess(2)
         }
     }
