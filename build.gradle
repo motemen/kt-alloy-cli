@@ -1,5 +1,5 @@
 buildscript {
-  ext.kotlin_version = '1.0.2-1'
+  ext.kotlin_version = '1.6.21'
 
   repositories {
     mavenCentral()
@@ -26,18 +26,13 @@ repositories {
 import de.undercouch.gradle.tasks.download.Download
 
 task downloadAlloyJar(type: Download) {
-    src  "http://alloy.mit.edu/alloy/downloads/alloy4.2.jar"
+    src  "https://alloytools.org/download/alloy4.2_2015-02-22.jar"
     dest "lib/alloy4.2.jar"
     outputs.file "lib/alloy4.2.jar"
 }
 
 dependencies {
-  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  compile files("lib/alloy4.2.jar")
+  implementation files("lib/alloy4.2.jar")
 }
 
 compileKotlin.dependsOn(downloadAlloyJar)
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
-}
